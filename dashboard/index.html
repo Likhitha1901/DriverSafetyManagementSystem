@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Driver Safety Dashboard</title>
+  <style>
+    body { font-family: Arial; background:#f4f4f4 }
+    .card { background:#fff; padding:20px; margin:10px }
+  </style>
+</head>
+<body>
+
+<h1>🚗 Driver Safety Dashboard</h1>
+
+<div class="card">
+  <h3>Status</h3>
+  <p id="status">Loading...</p>
+</div>
+
+<div class="card">
+  <h3>Alerts</h3>
+  <ul id="alerts"></ul>
+</div>
+
+<script>
+fetch("http://127.0.0.1:5000/data")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("status").innerText = data.status;
+    let list = document.getElementById("alerts");
+    data.alerts.forEach(a => {
+      let li = document.createElement("li");
+      li.innerText = JSON.stringify(a);
+      list.appendChild(li);
+    });
+  });
+</script>
+
+</body>
+</html>
